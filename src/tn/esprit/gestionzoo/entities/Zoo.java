@@ -49,28 +49,24 @@ public class Zoo {
         this.city = city;
     }
 
-    // Instruction 10 + 12 + 17 : Méthode addAnimal améliorée
+    // Méthode addAnimal améliorée
     public boolean addAnimal(Animal animal) {
-        // Instruction 17 : Utiliser isZooFull()
         if (isZooFull()) {
             System.out.println("Le zoo " + getName() + " est plein! Impossible d'ajouter " + animal.getName());
             return false;
         }
 
-        // Instruction 12 : Vérifier si l'animal existe déjà
         if (searchAnimal(animal) != -1) {
             System.out.println("L'animal " + animal.getName() + " existe déjà dans le zoo!");
             return false;
         }
 
-        // Ajouter l'animal
         animals[animalCount] = animal;
         animalCount++;
         System.out.println("Animal " + animal.getName() + " ajouté avec succès!");
         return true;
     }
 
-    // Méthode existante
     public void displayZoo() {
         System.out.println("Nom du zoo: " + getName());
         System.out.println("Ville: " + getCity());
@@ -78,7 +74,6 @@ public class Zoo {
         System.out.println("Nombre d'animaux actuels: " + getAnimalCount());
     }
 
-    // Instruction 11 : Méthode pour afficher tous les animaux
     public void displayAnimals() {
         System.out.println("\n=== Animaux du zoo " + getName() + " ===");
         if (animalCount == 0) {
@@ -90,7 +85,6 @@ public class Zoo {
         }
     }
 
-    // Instruction 11 : Méthode searchAnimal
     public int searchAnimal(Animal animal) {
         for (int i = 0; i < animalCount; i++) {
             if (animals[i].equals(animal)) {
@@ -100,7 +94,6 @@ public class Zoo {
         return -1;
     }
 
-    // Instruction 13 : Méthode removeAnimal
     public boolean removeAnimal(Animal animal) {
         int index = searchAnimal(animal);
         if (index == -1) {
@@ -108,7 +101,6 @@ public class Zoo {
             return false;
         }
 
-        // Décalage des éléments pour combler le vide
         for (int i = index; i < animalCount - 1; i++) {
             animals[i] = animals[i + 1];
         }
@@ -118,12 +110,10 @@ public class Zoo {
         return true;
     }
 
-    // Instruction 15 : Méthode isZooFull
     public boolean isZooFull() {
         return animalCount >= nbrCages;
     }
 
-    // Instruction 16 : Méthode statique comparerZoo
     public static Zoo comparerZoo(Zoo z1, Zoo z2) {
         if (z1.getAnimalCount() > z2.getAnimalCount()) {
             return z1;

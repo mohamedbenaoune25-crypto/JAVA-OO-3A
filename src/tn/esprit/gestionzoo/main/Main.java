@@ -1,105 +1,89 @@
 package tn.esprit.gestionzoo.main;
 
-// Importer les classes du package entities
-import tn.esprit.gestionzoo.entities.Animal;
-import tn.esprit.gestionzoo.entities.Zoo;
+import tn.esprit.gestionzoo.entities.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("=== TEST INSTRUCTION 18 : VALIDATION ===");
+        System.out.println("=== INSTRUCTION 21 : INSTANCES AVEC CONSTRUCTEURS PAR DÉFAUT ===");
 
-        // Test validation Animal - âge négatif
-        System.out.println("\n1. Test validation Animal (âge négatif):");
-        Animal animalAgeNegatif = new Animal("Test", "TestAnimal", -5, true);
-        System.out.println("Âge après tentative négative: " + animalAgeNegatif.getAge());
+        // Instruction 21 : Instances avec constructeurs par défaut
+        Aquatic aquaticDefault = new Aquatic();
+        Terrestrial terrestrialDefault = new Terrestrial();
+        Dolphin dolphinDefault = new Dolphin();
+        Penguin penguinDefault = new Penguin();
 
-        // Test validation Zoo - nom vide
-        System.out.println("\n2. Test validation Zoo (nom vide):");
-        Zoo zooNomVide = new Zoo("", "Tunis", 10);
-        System.out.println("Nom du zoo après tentative vide: " + zooNomVide.getName());
+        System.out.println("Animal aquatique par défaut: " + aquaticDefault);
+        System.out.println("Animal terrestre par défaut: " + terrestrialDefault);
+        System.out.println("Dauphin par défaut: " + dolphinDefault);
+        System.out.println("Pingouin par défaut: " + penguinDefault);
 
-        System.out.println("\n=== TEST INSTRUCTION 17 : addAnimal avec isZooFull() ===");
+        System.out.println("\n=== INSTRUCTION 22 : INSTANCES AVEC CONSTRUCTEURS PARAMÉTRÉS ===");
 
-        // Création d'un zoo avec capacité limitée
-        Zoo petitZoo = new Zoo("Petit Zoo", "Sfax", 2);
-        Animal lion = new Animal("Felidae", "Lion", 5, true);
-        Animal elephant = new Animal("Elephantidae", "Elephant", 10, true);
-        Animal tiger = new Animal("Felidae", "Tiger", 3, true);
+        // Instruction 22 : Instances avec constructeurs paramétrés
+        Aquatic aquatic = new Aquatic("Poisson", "Poisson-clown", 2, false, "Océan");
+        Terrestrial terrestrial = new Terrestrial("Félidé", "Lion", 5, true, 4);
+        Dolphin dolphin = new Dolphin("Delphinidé", "Dauphin", 8, true, "Océan", 35.5f);
+        Penguin penguin = new Penguin("Sphéniscidé", "Pingouin", 3, true, "Antarctique", 50.0f);
 
-        // Test d'ajout avec capacité limitée
-        System.out.println("\n3. Test ajout animaux avec capacité limitée:");
-        petitZoo.addAnimal(lion);        // true
-        petitZoo.addAnimal(elephant);    // true
-        petitZoo.addAnimal(tiger);       // false - zoo plein (utilise isZooFull())
+        System.out.println("Animal aquatique: " + aquatic);
+        System.out.println("Animal terrestre: " + terrestrial);
+        System.out.println("Dauphin: " + dolphin);
+        System.out.println("Pingouin: " + penguin);
 
-        // Test de la méthode isZooFull
-        System.out.println("\n4. Test méthode isZooFull():");
-        System.out.println("Le zoo est plein ? " + petitZoo.isZooFull());
+        System.out.println("\n=== TEST VALIDATION DES NOUVELLES CLASSES ===");
 
-        System.out.println("\n=== TEST INSTRUCTION 12 : EMPÊCHER LES DOUBLONS ===");
+        // Test validation des nouvelles classes
+        Terrestrial terrestrialInvalid = new Terrestrial("Test", "AnimalTest", 2, true, -3);
+        Dolphin dolphinInvalid = new Dolphin("Test", "DauphinTest", 4, true, "Mer", -10.0f);
+        Penguin penguinInvalid = new Penguin("Test", "PingouinTest", 1, true, "Pôle", -5.0f);
 
-        // Test d'ajout d'un animal déjà présent
-        Animal lionCopy = new Animal("Felidae", "Lion", 8, true);
-        System.out.println("\n5. Test ajout doublon:");
-        petitZoo.addAnimal(lionCopy); // Doit échouer - animal déjà présent
+        System.out.println("Terrestre avec pattes négatives: " + terrestrialInvalid);
+        System.out.println("Dauphin avec vitesse négative: " + dolphinInvalid);
+        System.out.println("Pingouin avec profondeur négative: " + penguinInvalid);
 
-        System.out.println("\n=== TEST INSTRUCTION 11 : RECHERCHE ET AFFICHAGE ===");
+        System.out.println("\n=== TEST AVEC LE ZOO ===");
 
-        // Affichage des animaux
-        petitZoo.displayAnimals();
+        // Création d'un zoo et ajout des nouveaux animaux
+        Zoo zooModern = new Zoo("Zoo Moderne", "Tunis", 10);
 
-        // Test de recherche
-        System.out.println("\n6. Test recherche animal:");
-        int indexLion = petitZoo.searchAnimal(lion);
-        System.out.println("Lion trouvé à l'indice: " + indexLion);
+        // Ajout des animaux au zoo
+        zooModern.addAnimal(aquatic);
+        zooModern.addAnimal(terrestrial);
+        zooModern.addAnimal(dolphin);
+        zooModern.addAnimal(penguin);
 
-        Animal animalInexistant = new Animal("Test", "Dragon", 100, false);
-        int indexDragon = petitZoo.searchAnimal(animalInexistant);
-        System.out.println("Dragon trouvé à l'indice: " + indexDragon);
+        // Affichage des animaux du zoo
+        zooModern.displayAnimals();
 
-        System.out.println("\n=== TEST INSTRUCTION 13 : SUPPRESSION ===");
+        System.out.println("\n=== TEST DES GETTERS/SETTERS ===");
 
-        // Test de suppression
-        System.out.println("\n7. Test suppression animal:");
-        petitZoo.removeAnimal(elephant);
-        petitZoo.displayAnimals();
+        // Test des getters et setters
+        dolphin.setSwimmingSpeed(40.0f);
+        penguin.setSwimmingDepth(60.0f);
+        terrestrial.setNbrLegs(4);
 
-        System.out.println("\n=== TEST INSTRUCTION 16 : COMPARAISON DE ZOOS ===");
+        System.out.println("Dauphin vitesse modifiée: " + dolphin.getSwimmingSpeed());
+        System.out.println("Pingouin profondeur modifiée: " + penguin.getSwimmingDepth());
+        System.out.println("Terrestre pattes modifiées: " + terrestrial.getNbrLegs());
 
-        // Création de deux zoos pour comparaison
-        Zoo zoo1 = new Zoo("Zoo Nord", "Tunis", 5);
-        Zoo zoo2 = new Zoo("Zoo Sud", "Sfax", 5);
+        // Test validation setters
+        dolphin.setSwimmingSpeed(-5.0f); // Doit afficher erreur
+        terrestrial.setNbrLegs(-2); // Doit afficher erreur
 
-        zoo1.addAnimal(new Animal("Canidae", "Loup", 4, true));
-        zoo1.addAnimal(new Animal("Ursidae", "Ours", 6, true));
+        System.out.println("\n=== TEST HIÉRARCHIE DES CLASSES ===");
 
-        zoo2.addAnimal(new Animal("Felidae", "Chat", 2, true));
+        // Polymorphisme : tous les animaux peuvent être traités comme Animal
+        Animal[] animauxVariés = {
+                new Aquatic("Reptile", "Tortue", 10, false, "Eau douce"),
+                new Terrestrial("Canidé", "Chien", 3, true, 4),
+                new Dolphin("Delphinidé", "Grand dauphin", 6, true, "Océan Atlantique", 30.0f),
+                new Penguin("Sphéniscidé", "Pingouin royal", 4, true, "Antarctique", 45.0f)
+        };
 
-        Zoo plusGrandZoo = Zoo.comparerZoo(zoo1, zoo2);
-        System.out.println("\n8. Comparaison zoos:");
-        System.out.println("Zoo avec le plus d'animaux: " + plusGrandZoo.getName());
-
-        System.out.println("\n=== TEST GETTERS/SETTERS ===");
-
-        // Test des getters
-        System.out.println("\n9. Test des getters:");
-        System.out.println("Nom du zoo: " + petitZoo.getName());
-        System.out.println("Ville: " + petitZoo.getCity());
-        System.out.println("Nombre de cages: " + petitZoo.getNbrCages());
-        System.out.println("Nombre d'animaux: " + petitZoo.getAnimalCount());
-
-        // Test des setters avec validation
-        System.out.println("\n10. Test setters avec validation:");
-        petitZoo.setName(""); // Doit afficher erreur et garder ancien nom
-        System.out.println("Nom après tentative vide: " + petitZoo.getName());
-
-        Animal testAnimal = new Animal("Test", "Test", 5, true);
-        testAnimal.setAge(-10); // Doit afficher erreur
-        System.out.println("Âge après tentative négative: " + testAnimal.getAge());
-
-        System.out.println("\n=== AFFICHAGE AVEC toString() ===");
-        System.out.println(petitZoo);
-        System.out.println(lion);
+        System.out.println("Liste d'animaux variés:");
+        for (Animal animal : animauxVariés) {
+            System.out.println("- " + animal.getClass().getSimpleName() + ": " + animal);
+        }
     }
 }
