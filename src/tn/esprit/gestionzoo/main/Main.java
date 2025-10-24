@@ -5,85 +5,81 @@ import tn.esprit.gestionzoo.entities.*;
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("=== INSTRUCTION 21 : INSTANCES AVEC CONSTRUCTEURS PAR DÉFAUT ===");
+        System.out.println("=== INSTRUCTION 25-26 : AJOUT D'ANIMAUX AQUATIQUES ===");
 
-        // Instruction 21 : Instances avec constructeurs par défaut
-        Aquatic aquaticDefault = new Aquatic();
-        Terrestrial terrestrialDefault = new Terrestrial();
-        Dolphin dolphinDefault = new Dolphin();
-        Penguin penguinDefault = new Penguin();
+        // Création d'un zoo
+        Zoo zooAquatique = new Zoo("Zoo Marin", "Sousse", 15);
 
-        System.out.println("Animal aquatique par défaut: " + aquaticDefault);
-        System.out.println("Animal terrestre par défaut: " + terrestrialDefault);
-        System.out.println("Dauphin par défaut: " + dolphinDefault);
-        System.out.println("Pingouin par défaut: " + penguinDefault);
-
-        System.out.println("\n=== INSTRUCTION 22 : INSTANCES AVEC CONSTRUCTEURS PARAMÉTRÉS ===");
-
-        // Instruction 22 : Instances avec constructeurs paramétrés
-        Aquatic aquatic = new Aquatic("Poisson", "Poisson-clown", 2, false, "Océan");
-        Terrestrial terrestrial = new Terrestrial("Félidé", "Lion", 5, true, 4);
-        Dolphin dolphin = new Dolphin("Delphinidé", "Dauphin", 8, true, "Océan", 35.5f);
-        Penguin penguin = new Penguin("Sphéniscidé", "Pingouin", 3, true, "Antarctique", 50.0f);
-
-        System.out.println("Animal aquatique: " + aquatic);
-        System.out.println("Animal terrestre: " + terrestrial);
-        System.out.println("Dauphin: " + dolphin);
-        System.out.println("Pingouin: " + penguin);
-
-        System.out.println("\n=== TEST VALIDATION DES NOUVELLES CLASSES ===");
-
-        // Test validation des nouvelles classes
-        Terrestrial terrestrialInvalid = new Terrestrial("Test", "AnimalTest", 2, true, -3);
-        Dolphin dolphinInvalid = new Dolphin("Test", "DauphinTest", 4, true, "Mer", -10.0f);
-        Penguin penguinInvalid = new Penguin("Test", "PingouinTest", 1, true, "Pôle", -5.0f);
-
-        System.out.println("Terrestre avec pattes négatives: " + terrestrialInvalid);
-        System.out.println("Dauphin avec vitesse négative: " + dolphinInvalid);
-        System.out.println("Pingouin avec profondeur négative: " + penguinInvalid);
-
-        System.out.println("\n=== TEST AVEC LE ZOO ===");
-
-        // Création d'un zoo et ajout des nouveaux animaux
-        Zoo zooModern = new Zoo("Zoo Moderne", "Tunis", 10);
-
-        // Ajout des animaux au zoo
-        zooModern.addAnimal(aquatic);
-        zooModern.addAnimal(terrestrial);
-        zooModern.addAnimal(dolphin);
-        zooModern.addAnimal(penguin);
-
-        // Affichage des animaux du zoo
-        zooModern.displayAnimals();
-
-        System.out.println("\n=== TEST DES GETTERS/SETTERS ===");
-
-        // Test des getters et setters
-        dolphin.setSwimmingSpeed(40.0f);
-        penguin.setSwimmingDepth(60.0f);
-        terrestrial.setNbrLegs(4);
-
-        System.out.println("Dauphin vitesse modifiée: " + dolphin.getSwimmingSpeed());
-        System.out.println("Pingouin profondeur modifiée: " + penguin.getSwimmingDepth());
-        System.out.println("Terrestre pattes modifiées: " + terrestrial.getNbrLegs());
-
-        // Test validation setters
-        dolphin.setSwimmingSpeed(-5.0f); // Doit afficher erreur
-        terrestrial.setNbrLegs(-2); // Doit afficher erreur
-
-        System.out.println("\n=== TEST HIÉRARCHIE DES CLASSES ===");
-
-        // Polymorphisme : tous les animaux peuvent être traités comme Animal
-        Animal[] animauxVariés = {
-                new Aquatic("Reptile", "Tortue", 10, false, "Eau douce"),
-                new Terrestrial("Canidé", "Chien", 3, true, 4),
-                new Dolphin("Delphinidé", "Grand dauphin", 6, true, "Océan Atlantique", 30.0f),
-                new Penguin("Sphéniscidé", "Pingouin royal", 4, true, "Antarctique", 45.0f)
+        // Instruction 26 : Création et ajout d'animaux aquatiques
+        Dolphin dolphin1 = new Dolphin("Delphinidé", "Flipper", 5, true, "Océan Atlantique", 40.0f);
+        Dolphin dolphin2 = new Dolphin("Delphinidé", "Dolly", 3, true, "Océan Pacifique", 35.5f);
+        Penguin penguin1 = new Penguin("Sphéniscidé", "Pingou", 2, true, "Antarctique", 30.0f);
+        Penguin penguin2 = new Penguin("Sphéniscidé", "Pinga", 4, true, "Arctique", 45.5f);
+        Penguin penguin3 = new Penguin("Sphéniscidé", "Plongeur", 6, true, "Antarctique", 60.0f);
+        Aquatic tortue = new Aquatic("Testudinidé", "Tortue Marine", 15, false, "Océan") {
+            @Override
+            public void swim() {
+                System.out.println("La tortue " + getName() + " nage lentement");
+            }
         };
 
-        System.out.println("Liste d'animaux variés:");
-        for (Animal animal : animauxVariés) {
-            System.out.println("- " + animal.getClass().getSimpleName() + ": " + animal);
+        // Ajout des animaux aquatiques au zoo
+        zooAquatique.addAquaticAnimal(dolphin1);
+        zooAquatique.addAquaticAnimal(dolphin2);
+        zooAquatique.addAquaticAnimal(penguin1);
+        zooAquatique.addAquaticAnimal(penguin2);
+        zooAquatique.addAquaticAnimal(penguin3);
+        zooAquatique.addAquaticAnimal(tortue);
+
+        // Affichage des animaux aquatiques
+        zooAquatique.displayAquaticAnimals();
+
+        System.out.println("\n=== INSTRUCTION 27 : FAIRE NAGER TOUS LES ANIMAUX AQUATIQUES ===");
+
+        // Instruction 27 : Faire nager tous les animaux aquatiques
+        zooAquatique.makeAllAquaticsSwim();
+
+        System.out.println("\n=== INSTRUCTION 29 : PROFONDEUR MAXIMALE DES PINGOUINS ===");
+
+        // Instruction 29 : Profondeur maximale des pingouins
+        float maxDepth = zooAquatique.maxPenguinSwimmingDepth();
+        System.out.println("La profondeur maximale de nage des pingouins est: " + maxDepth + " mètres");
+
+        System.out.println("\n=== INSTRUCTION 30 : NOMBRE D'AQUATIQUES PAR TYPE ===");
+
+        // Instruction 30 : Affichage du nombre d'aquatiques par type
+        zooAquatique.displayNumberOfAquaticsByType();
+
+        System.out.println("\n=== INSTRUCTION 31 : TEST DE LA MÉTHODE EQUALS ===");
+
+        // Instruction 31 : Test de la méthode equals
+        Aquatic aquatic1 = new Dolphin("Delphinidé", "Same", 5, true, "Océan", 30.0f);
+        Aquatic aquatic2 = new Dolphin("Delphinidé", "Same", 5, true, "Océan", 35.0f); // Même nom, âge, habitat
+        Aquatic aquatic3 = new Dolphin("Delphinidé", "Different", 5, true, "Océan", 30.0f); // Nom différent
+        Aquatic aquatic4 = new Dolphin("Delphinidé", "Same", 3, true, "Océan", 30.0f); // Âge différent
+        Aquatic aquatic5 = new Dolphin("Delphinidé", "Same", 5, true, "Mer", 30.0f); // Habitat différent
+
+        System.out.println("aquatic1 equals aquatic2 (mêmes caractéristiques): " + aquatic1.equals(aquatic2));
+        System.out.println("aquatic1 equals aquatic3 (nom différent): " + aquatic1.equals(aquatic3));
+        System.out.println("aquatic1 equals aquatic4 (âge différent): " + aquatic1.equals(aquatic4));
+        System.out.println("aquatic1 equals aquatic5 (habitat différent): " + aquatic1.equals(aquatic5));
+
+        System.out.println("\n=== TEST D'AJOUT D'ANIMAUX IDENTIQUES ===");
+
+        // Test d'ajout d'animaux identiques (doivent être considérés comme égaux)
+        Aquatic dolphinCopy = new Dolphin("Delphinidé", "Flipper", 5, true, "Océan Atlantique", 40.0f);
+        System.out.println("dolphin1 equals dolphinCopy: " + dolphin1.equals(dolphinCopy));
+
+        System.out.println("\n=== TEST DE DÉPASSEMENT DE CAPACITÉ AQUATIQUE ===");
+
+        // Test d'ajout au-delà de la capacité (10 animaux aquatiques max)
+        for (int i = 0; i < 6; i++) {
+            Aquatic extraAquatic = new Penguin("Sphéniscidé", "Pingouin" + i, 1, true, "Pôle", 20.0f + i);
+            zooAquatique.addAquaticAnimal(extraAquatic);
         }
+
+        System.out.println("\n=== AFFICHAGE FINAL DU ZOO ===");
+        zooAquatique.displayZoo();
+        zooAquatique.displayNumberOfAquaticsByType();
     }
 }

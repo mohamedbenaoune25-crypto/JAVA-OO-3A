@@ -1,28 +1,29 @@
 package tn.esprit.gestionzoo.entities;
 
 public class Dolphin extends Aquatic {
-    // Instruction 20 : Attribut privé
     private float swimmingSpeed;
 
-    // Instruction 22 : Constructeur paramétré
     public Dolphin(String family, String name, int age, boolean isMammal, String habitat, float swimmingSpeed) {
-        super(family, name, age, isMammal, habitat); // Appel du constructeur parent
-        setSwimmingSpeed(swimmingSpeed); // Utiliser le setter pour la validation
+        super(family, name, age, isMammal, habitat);
+        setSwimmingSpeed(swimmingSpeed);
     }
 
-    // Instruction 22 : Constructeur par défaut
     public Dolphin() {
-        super(); // Appel du constructeur parent par défaut
+        super();
         this.swimmingSpeed = 0.0f;
     }
 
-    // Getters et Setters avec validation
+    // Instruction 28 : Implémentation de swim()
+    @Override
+    public void swim() {
+        System.out.println("Le dauphin " + getName() + " nage rapidement à " + swimmingSpeed + " km/h");
+    }
+
     public float getSwimmingSpeed() {
         return swimmingSpeed;
     }
 
     public void setSwimmingSpeed(float swimmingSpeed) {
-        // Validation : vitesse ne peut pas être négative
         if (swimmingSpeed >= 0) {
             this.swimmingSpeed = swimmingSpeed;
         } else {

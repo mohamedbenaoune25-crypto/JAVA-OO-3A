@@ -1,28 +1,29 @@
 package tn.esprit.gestionzoo.entities;
 
 public class Penguin extends Aquatic {
-    // Instruction 20 : Attribut privé
     private float swimmingDepth;
 
-    // Instruction 22 : Constructeur paramétré
     public Penguin(String family, String name, int age, boolean isMammal, String habitat, float swimmingDepth) {
-        super(family, name, age, isMammal, habitat); // Appel du constructeur parent
-        setSwimmingDepth(swimmingDepth); // Utiliser le setter pour la validation
+        super(family, name, age, isMammal, habitat);
+        setSwimmingDepth(swimmingDepth);
     }
 
-    // Instruction 22 : Constructeur par défaut
     public Penguin() {
-        super(); // Appel du constructeur parent par défaut
+        super();
         this.swimmingDepth = 0.0f;
     }
 
-    // Getters et Setters avec validation
+    // Instruction 28 : Implémentation de swim()
+    @Override
+    public void swim() {
+        System.out.println("Le pingouin " + getName() + " plonge jusqu'à " + swimmingDepth + " mètres de profondeur");
+    }
+
     public float getSwimmingDepth() {
         return swimmingDepth;
     }
 
     public void setSwimmingDepth(float swimmingDepth) {
-        // Validation : profondeur ne peut pas être négative
         if (swimmingDepth >= 0) {
             this.swimmingDepth = swimmingDepth;
         } else {

@@ -1,22 +1,34 @@
 package tn.esprit.gestionzoo.entities;
 
-public class Aquatic extends Animal {
-    // Instruction 20 : Attribut privé
+public abstract class Aquatic extends Animal {
     private String habitat;
 
-    // Instruction 22 : Constructeur paramétré
     public Aquatic(String family, String name, int age, boolean isMammal, String habitat) {
-        super(family, name, age, isMammal); // Appel du constructeur parent
+        super(family, name, age, isMammal);
         this.habitat = habitat;
     }
 
-    // Instruction 22 : Constructeur par défaut
     public Aquatic() {
-        super("", "", 0, false); // Appel du constructeur parent par défaut
+        super("", "", 0, false);
         this.habitat = "";
     }
 
-    // Getters et Setters
+    // Instruction 28 : Méthode abstraite swim()
+    public abstract void swim();
+
+    // Instruction 31 : Redéfinition de equals()
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        if (!super.equals(obj)) return false;
+
+        Aquatic aquatic = (Aquatic) obj;
+        return getName().equals(aquatic.getName()) &&
+                getAge() == aquatic.getAge() &&
+                habitat.equals(aquatic.habitat);
+    }
+
     public String getHabitat() {
         return habitat;
     }

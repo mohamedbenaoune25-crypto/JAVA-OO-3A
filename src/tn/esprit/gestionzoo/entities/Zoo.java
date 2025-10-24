@@ -1,20 +1,26 @@
 package tn.esprit.gestionzoo.entities;
 
 public class Zoo {
-    // Attributs privés
     private String name;
     private String city;
     private final int nbrCages;
     private Animal[] animals;
     private int animalCount;
 
-    // Constructeur avec validation
+    // Instruction 25 : Tableau aquaticAnimals
+    private Aquatic[] aquaticAnimals;
+    private int aquaticAnimalCount;
+
     public Zoo(String name, String city, int nbrCages) {
-        setName(name); // Utiliser le setter pour la validation
+        setName(name);
         this.city = city;
         this.nbrCages = nbrCages;
         this.animals = new Animal[nbrCages];
         this.animalCount = 0;
+
+        // Instruction 25 : Initialisation du tableau aquaticAnimals (10 places)
+        this.aquaticAnimals = new Aquatic[10];
+        this.aquaticAnimalCount = 0;
     }
 
     // Getters
@@ -34,14 +40,17 @@ public class Zoo {
         return animalCount;
     }
 
+    public int getAquaticAnimalCount() {
+        return aquaticAnimalCount;
+    }
+
     // Setters avec validation
     public void setName(String name) {
-        // Validation : nom ne doit pas être vide
         if (name != null && !name.trim().isEmpty()) {
             this.name = name;
         } else {
             System.out.println("Erreur : Le nom du zoo ne peut pas être vide!");
-            this.name = "Zoo Inconnu"; // Valeur par défaut
+            this.name = "Zoo Inconnu";
         }
     }
 
@@ -49,7 +58,7 @@ public class Zoo {
         this.city = city;
     }
 
-    // Méthode addAnimal améliorée
+    // Méthode addAnimal existante
     public boolean addAnimal(Animal animal) {
         if (isZooFull()) {
             System.out.println("Le zoo " + getName() + " est plein! Impossible d'ajouter " + animal.getName());
@@ -67,11 +76,69 @@ public class Zoo {
         return true;
     }
 
+    // Instruction 26 : Méthode addAquaticAnimal
+    public void addAquaticAnimal(Aquatic aquatic) {
+        if (aquaticAnimalCount < aquaticAnimals.length) {
+            aquaticAnimals[aquaticAnimalCount] = aquatic;
+            aquaticAnimalCount++;
+            System.out.println("Animal aquatique " + aquatic.getName() + " ajouté avec succès!");
+        } else {
+            System.out.println("Le zoo aquatique est plein! Impossible d'ajouter " + aquatic.getName());
+        }
+    }
+
+    // Instruction 27 : Méthode pour faire nager tous les animaux aquatiques
+    public void makeAllAquaticsSwim() {
+        System.out.println("\n=== Tous les animaux aquatiques nagent ===");
+        for (int i = 0; i < aquaticAnimalCount; i++) {
+            aquaticAnimals[i].swim();
+        }
+    }
+
+    // Instruction 29 : Méthode maxPenguinSwimmingDepth
+    public float maxPenguinSwimmingDepth() {
+        float maxDepth = 0.0f;
+        for (int i = 0; i < aquaticAnimalCount; i++) {
+            if (aquaticAnimals[i] instanceof Penguin) {
+                Penguin penguin = (Penguin) aquaticAnimals[i];
+                if (penguin.getSwimmingDepth() > maxDepth) {
+                    maxDepth = penguin.getSwimmingDepth();
+                }
+            }
+        }
+        return maxDepth;
+    }
+
+    // Instruction 30 : Méthode displayNumberOfAquaticsByType
+    public void displayNumberOfAquaticsByType() {
+        int dolphinCount = 0;
+        int penguinCount = 0;
+        int otherAquaticCount = 0;
+
+        for (int i = 0; i < aquaticAnimalCount; i++) {
+            if (aquaticAnimals[i] instanceof Dolphin) {
+                dolphinCount++;
+            } else if (aquaticAnimals[i] instanceof Penguin) {
+                penguinCount++;
+            } else {
+                otherAquaticCount++;
+            }
+        }
+
+        System.out.println("\n=== Statistiques des animaux aquatiques ===");
+        System.out.println("Nombre de dauphins: " + dolphinCount);
+        System.out.println("Nombre de pingouins: " + penguinCount);
+        System.out.println("Nombre d'autres animaux aquatiques: " + otherAquaticCount);
+        System.out.println("Total animaux aquatiques: " + aquaticAnimalCount);
+    }
+
+    // Méthodes existantes
     public void displayZoo() {
         System.out.println("Nom du zoo: " + getName());
         System.out.println("Ville: " + getCity());
         System.out.println("Nombre de cages: " + getNbrCages());
         System.out.println("Nombre d'animaux actuels: " + getAnimalCount());
+        System.out.println("Nombre d'animaux aquatiques: " + getAquaticAnimalCount());
     }
 
     public void displayAnimals() {
@@ -82,6 +149,17 @@ public class Zoo {
         }
         for (int i = 0; i < animalCount; i++) {
             System.out.println((i+1) + ". " + animals[i]);
+        }
+    }
+
+    public void displayAquaticAnimals() {
+        System.out.println("\n=== Animaux aquatiques du zoo " + getName() + " ===");
+        if (aquaticAnimalCount == 0) {
+            System.out.println("Aucun animal aquatique dans le zoo.");
+            return;
+        }
+        for (int i = 0; i < aquaticAnimalCount; i++) {
+            System.out.println((i+1) + ". " + aquaticAnimals[i]);
         }
     }
 
@@ -132,6 +210,7 @@ public class Zoo {
                 ", city='" + getCity() + '\'' +
                 ", nbrCages=" + getNbrCages() +
                 ", animalCount=" + getAnimalCount() +
+                ", aquaticAnimalCount=" + getAquaticAnimalCount() +
                 '}';
     }
 }
